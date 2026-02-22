@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DTV Rozcestnik</title>
+    <title>Digitálne Technológie Výroby</title>
     <style>
         body { 
             font-family: monospace; 
@@ -33,9 +33,8 @@
             font-size: 1.1em; 
             line-height: 1.6; 
         }
-        a.link-btn { 
-            display: inline-block; 
-            margin: 10px 0; 
+        .link-btn { 
+            display: block; 
             padding: 12px 20px; 
             background-color: #27ae60; 
             color: #fff; 
@@ -43,9 +42,16 @@
             border-radius: 4px; 
             font-weight: bold; 
             transition: background 0.3s; 
+            text-align: center;
         }
-        a.link-btn:hover { 
+        .link-btn:hover { 
             background-color: #2ecc71; 
+        }
+        .link-btn-new {
+            background-color: #2980b9; /* Modrá farba pre nový projekt */
+        }
+        .link-btn-new:hover {
+            background-color: #3498db;
         }
         a.link-back { 
             display: inline-block; 
@@ -72,34 +78,29 @@
             margin-top: 30px; 
             padding: 20px; 
             background: #f8f9fa; 
-            border-left: 4px solid #27ae60;
+            border-left: 4px solid #2980b9;
+            display: flex;
+            flex-direction: column; /* Usporiada tlačidlá projektov pod seba */
+            gap: 12px; /* Medzera medzi tlačidlami */
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 id="main-title"></h1>
+    <h1>Digitálne Technológie Výroby</h1>
     <p>
-        <span id="desc-text"></span><br>
-        <a href="https://dai.fmph.uniba.sk/courses/dtv/index.php/DTV" class="course-link" target="_blank">https://dai.fmph.uniba.sk/courses/dtv/index.php/DTV</a>
+        Projekty a príklady pre predmet:<br>
+        <a href="https://dai.fmph.uniba.sk/courses/dtv/index.php/DTV" class="course-link" target="_blank">Predmet DTV na FMFI UK</a>
     </p>
 
     <div class="project-box">
-        <a href="p001/" class="link-btn" id="link-p001"></a>
+        <a href="p001/" class="link-btn">Projekt 001: Autonómna VAWT turbína (G4.4)</a>
+        <a href="p002/" class="link-btn link-btn-new">Projekt 002: Autonómna VAWT turbína (V 5.0)</a>
     </div>
 
-    <a href="https://www.fablab.sk" class="link-back" id="link-fablab"></a>
+    <a href="https://www.fablab.sk" class="link-back">← Návrat na stránku www.fablab.sk</a>
 </div>
-
-<script>
-    // Injekcia textov pomocou Unicode Escapes pre ochranu pred de\u0161trukciou k\u00F3dovania
-    document.title = "Digit\u00E1lne Technol\u00F3gie V\u00FDroby";
-    document.getElementById("main-title").innerText = "Digit\u00E1lne Technol\u00F3gie V\u00FDroby";
-    document.getElementById("desc-text").innerText = "Projekty a pr\u00EDklady pre predmet:";
-    document.getElementById("link-p001").innerText = "Projekt 001: Auton\u00F3mna VAWT turb\u00EDna (G4.1)";
-    document.getElementById("link-fablab").innerText = "\u2190 N\u00E1vrat na str\u00E1nku www.fablab.sk";
-</script>
 
 </body>
 </html>
