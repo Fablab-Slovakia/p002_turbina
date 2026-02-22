@@ -105,13 +105,13 @@ const updatePackage = {
 
 </div>
 
-<script src="vawt_globals.js"></script>
-<script src="vawt_math.js"></script>
-<script src="vawt_ui.js"></script>
-<script src="vawt_audio.js"></script>
-<script src="vawt_charts.js"></script>
-<script src="vawt_scene.js"></script>
-<script src="app.js"></script>
+<script src="vawt_globals.js?v=5.0"></script>
+<script src="vawt_math.js?v=5.0"></script>
+<script src="vawt_ui.js?v=5.0"></script>
+<script src="vawt_audio.js?v=5.0"></script>
+<script src="vawt_charts.js?v=5.0"></script>
+<script src="vawt_scene.js?v=5.0"></script>
+<script src="app.js?v=5.0"></script>
 
 </body>
 </html>`,
@@ -132,7 +132,7 @@ const updatePackage = {
     let aeroTorque = (wind * wind) * aeroEfficiency * (rad * h) * 1.5; 
     let frictionTorque = (currentRPM * 0.8) + (currentRPM > 0 ? 5.0 : 0); 
     
-    // G4.4: Fyzika Generátora
+    // V5.0: Fyzika Generátora
     let Kv = 15.0; 
     let Kt = 60.0 / (2.0 * Math.PI * Kv); 
     let R_ph = 0.2; 
@@ -299,7 +299,6 @@ const updatePackage = {
     renderer.render(scene, activeCamera);
 }
 
-// Inicializácia
 initUI();
 initScene();
 animate();`,
@@ -622,9 +621,9 @@ function onWindowResize() {
     if(loadLbl) {
         loadLbl.innerText = "Elektrická záťaž (Odpor):";
         document.getElementById("ohm-sym-v44").innerText = "Ω";
-        document.getElementById("ui-volts-lbl-v44").innerText = "Napätie(V)";
-        document.getElementById("ui-amps-lbl-v44").innerText = "Prúd(A)";
-        document.getElementById("ui-watts-lbl-v44").innerText = "Výkon(W)";
+        document.getElementById("ui-volts-lbl-v44").innerText = "Napätie (V)";
+        document.getElementById("ui-amps-lbl-v44").innerText = "Prúd (A)";
+        document.getElementById("ui-watts-lbl-v44").innerText = "Výkon (W)";
     }
 
     var btnAudio = document.getElementById("btn-audio-v42");
@@ -684,6 +683,6 @@ window.setCameraView = function(type) {
 
 Object.entries(updatePackage.files).forEach(([fileName, content]) => {
     fs.writeFileSync(path.join(__dirname, fileName), content, 'utf8');
-    console.log("✅ Aktualizované a vyčistené do UTF-8: " + fileName);
+    console.log("✅ V5.0 Restored & UTF-8 Decoded: " + fileName);
 });
-console.log("\\n🚀 Verzia " + updatePackage.version + " úspešne nasadená. Otestuj scénu.");
+console.log("\\n🚀 Verzia V5.0.0 (G4.4 klon) úspešne nasadená. Otestuj scénu.");

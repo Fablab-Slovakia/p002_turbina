@@ -8,8 +8,11 @@ var govWeights = [], govArmsT = [], govArmsB = [], topCollar, slidingCollar;
 var statorPillars = [], topStruts = [], botStruts = [], mountLegs = [];
 var streamlines = [];
 var TRAIL_LENGTH = 15;
+
 var audioCtx, windGain, bladeGain, windFilter, bladeOsc;
-var audioInitialized = false, isAudioPlaying = false;
+var audioInitialized = false;
+var isAudioPlaying = false;
+
 var chartTelemetry, chartParams;
 var timeHistory = [], rpmHistory = [], torqueHistory = [], windHistory = [], wattsHistory = [];
 var chartUpdateCounter = 0;
