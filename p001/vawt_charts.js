@@ -1,7 +1,7 @@
 /**
  * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.3
  * S\u00DABOR: vawt_charts.js
- * POPIS: Analytick\u00FD modul pre vykres\u013Eovanie grafov (Chart.js).
+ * POPIS: Analytick\u00FD modul pre vykres\u013Eovanie grafov (Chart.js) - NeZ\u00E1visl\u00E9 mierky.
  */
 
 function initCharts() {
@@ -14,16 +14,21 @@ function initCharts() {
             datasets: [
                 { label: 'RPM', borderColor: '#e74c3c', data: rpmHistory, yAxisID: 'y', tension: 0.2, pointRadius: 0 },
                 { label: 'Kr\u00FAtiaci moment (Nm)', borderColor: '#27ae60', data: torqueHistory, yAxisID: 'y1', tension: 0.2, pointRadius: 0 },
-                { label: 'Vietor (m/s)', borderColor: '#3498db', data: windHistory, yAxisID: 'y', tension: 0.2, pointRadius: 0, borderDash: [5, 5] }
+                // Vietor teraz be\u017E\u00ED na vlastnej osi 'y2'
+                { label: 'Vietor (m/s)', borderColor: '#3498db', data: windHistory, yAxisID: 'y2', tension: 0.2, pointRadius: 0, borderDash: [5, 5] }
             ]
         },
         options: {
             responsive: true, maintainAspectRatio: false, animation: false,
             interaction: { mode: 'index', intersect: false },
             scales: {
-                x: { display: false }, // Skryjeme \u010Dasov\u00FA os pre \u010Distotu
-                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'RPM / R\u00FDchlos\u0165' } },
-                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Moment (Nm)' }, grid: { drawOnChartArea: false } }
+                x: { display: false }, 
+                // \u013Dav\u00E1 os pre RPM
+                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'RPM' } },
+                // Prav\u00E1 vn\u00FAtorn\u00E1 os pre Moment (Nm)
+                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Moment (Nm)' }, grid: { drawOnChartArea: false } },
+                // Prav\u00E1 vonkaj\u0161ia os pre Vietor (m/s) so zafixovanou mierkou
+                y2: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Vietor (m/s)' }, grid: { drawOnChartArea: false }, min: 0, max: 40 }
             },
             plugins: { legend: { position: 'top' } }
         }
@@ -53,23 +58,20 @@ function initCharts() {
 
 function updateCharts(rpm, torque, wind, rad, h, lev, mass, damp) {
     chartUpdateCounter++;
-    // Grafy updatujeme len ka\u017Ed\u00FDch 15 sn\u00EDmok (cca 4x za sekundu), \u0161etr\u00EDme CPU pre 3D a fyziku
+    // Aktualiz\u00E1cia grafov ka\u017Ed\u00FDch 15 frameov pre zachovanie 3D v\u00FDkonu
     if (chartUpdateCounter % 15 !== 0) return;
 
-    // A. Aktualiz\u00E1cia Telemetrie
     var timeStamp = new Date().toLocaleTimeString();
     timeHistory.push(timeStamp);
     rpmHistory.push(rpm);
     torqueHistory.push(torque);
     windHistory.push(wind);
 
-    // Udr\u017Eiavame len posledn\u00FDch 50 z\u00E1znamov (efekt be\u017Eiaceho p\u00E1su)
     if (timeHistory.length > 50) {
         timeHistory.shift(); rpmHistory.shift(); torqueHistory.shift(); windHistory.shift();
     }
     if(chartTelemetry) chartTelemetry.update();
 
-    // B. Aktualiz\u00E1cia Radarov\u00E9ho profilu (normaliz\u00E1cia hodn\u00F4t na % pod\u013Ea min/max z UI)
     if(chartParams) {
         var nRad = ((rad - 0.8) / (2.5 - 0.8)) * 100;
         var nH = ((h - 1.0) / (3.0 - 1.0)) * 100;
