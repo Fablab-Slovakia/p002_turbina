@@ -1,0 +1,18 @@
+# Opera\u000D9n\u00E9 syst\u00E9my
+.DS_Store
+Thumbs.db
+
+# IDE a editory (VS Code, JetBrains)
+.vscode/
+.idea/
+*.swp
+
+# Logy a do\u000D9asn\u00E9 s\u00FAbory
+*.log
+tmp/
+dist/
+
+# Konfigur\u00E1cia a tajn\u00E9 k\u0000EAu\u000D9e (D\u00D4LE\u0009DIT\u00C9 PRE PUBLIC REPO)
+.env
+config.local.json
+credentials.xml
