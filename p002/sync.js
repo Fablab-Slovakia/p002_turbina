@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const updatePackage = {
-    version: "5.3.0",
+    version: "5.4.0",
     files: {
         "index.html": `<!DOCTYPE html>
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAWT Simulator V5.3</title>
+    <title>VAWT Simulator V5.4</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,8 +20,7 @@ const updatePackage = {
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
         
-        /* CSS pre Blokove schemy */
-        .diagram-container { display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #fff; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px; }
+        .diagram-container { display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #fff; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 10px; }
         .diagram-row { display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; font-size: 0.9em; font-weight: bold; }
         .diagram-box { padding: 10px 15px; border-radius: 4px; border: 2px solid; min-width: 120px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .diagram-arrow { font-size: 1.5em; color: #7f8c8d; }
@@ -29,6 +28,13 @@ const updatePackage = {
         .box-green { background: #e8f8f5; border-color: #27ae60; color: #2c3e50; }
         .box-orange { background: #fef5e7; border-color: #e67e22; color: #2c3e50; }
         .box-red { background: #fdedec; border-color: #c0392b; color: #2c3e50; }
+
+        /* Stylovanie pre akordeon */
+        details { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; margin-bottom: 12px; padding: 10px 15px; transition: background 0.3s; }
+        details[open] { background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        summary { font-size: 1.2em; font-weight: bold; cursor: pointer; padding: 5px 0; outline: none; user-select: none; }
+        summary::-webkit-details-marker { color: #7f8c8d; }
+        .details-content { padding-top: 15px; border-top: 1px solid #eee; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -119,111 +125,122 @@ const updatePackage = {
             <button onclick="closeDocs()" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">ZAVRIEŤ (X)</button>
         </div>
         
-        <h3 style="color: #2980b9;">Čo? (Cieľ projektu)</h3>
-        <p style="line-height: 1.6;">Interaktívna pomôcka pre vývoj, modelovanie, simuláciu a optimalizáciu vertikálnej veternej turbíny (VAWT). Systém slúži na praktické osvojenie si metodiky <strong>PLM (Product Lifecycle Management)</strong> pri materializácii nápadov od digitálneho návrhu až po produkciu. Výsledkom je didaktická pomôcka na detailné demonštrovanie fyzikálnych a aerodynamických dejov, ako aj samotné vytvorenie reálneho, funkčného zmenšeného modelu na edukatívne účely.</p>
+        <details open style="border-left: 4px solid #2980b9;">
+            <summary style="color: #2980b9;">Čo? (Cieľ projektu)</summary>
+            <div class="details-content">
+                <p style="line-height: 1.6; margin: 0;">Interaktívna pomôcka pre vývoj, modelovanie, simuláciu a optimalizáciu vertikálnej veternej turbíny (VAWT). Systém slúži na praktické osvojenie si metodiky <strong>PLM (Product Lifecycle Management)</strong> pri materializácii nápadov od digitálneho návrhu až po produkciu. Výsledkom je didaktická pomôcka na detailné demonštrovanie fyzikálnych a aerodynamických dejov, ako aj samotné vytvorenie reálneho, funkčného zmenšeného modelu na edukatívne účely.</p>
+            </div>
+        </details>
         
-        <h3 style="color: #27ae60;">Prečo? (Motivácia)</h3>
-        <p style="line-height: 1.6;">Projekt stojí na dvoch pilieroch:<br>
-        1. <strong>Hardvérová recyklácia:</strong> Využitie starého BLDC (Brushless DC) motora z vyradeného hoverboardu vo funkcii efektívneho generátora elektrickej energie.<br>
-        2. <strong>Softvérová inovácia:</strong> Praktické a experimentálne overenie schopností Umelej Inteligencie (AI) v rovnocennej úlohe partnera pre komplexné inžinierske analýzy a programátorské práce v prostredí JavaScript a WebGL.</p>
+        <details style="border-left: 4px solid #27ae60;">
+            <summary style="color: #27ae60;">Prečo? (Motivácia)</summary>
+            <div class="details-content">
+                <p style="line-height: 1.6; margin: 0;">Projekt stojí na dvoch pilieroch:<br>
+                1. <strong>Hardvérová recyklácia:</strong> Využitie starého BLDC (Brushless DC) motora z vyradeného hoverboardu vo funkcii efektívneho generátora elektrickej energie.<br>
+                2. <strong>Softvérová inovácia:</strong> Praktické a experimentálne overenie schopností Umelej Inteligencie (AI) v rovnocennej úlohe partnera pre komplexné inžinierske analýzy a programátorské práce v prostredí JavaScript a WebGL.</p>
+            </div>
+        </details>
         
-        <h3 style="color: #8e44ad;">Ako? (Postup)</h3>
-        <p style="line-height: 1.6;">Vývojový cyklus je postavený na iteratívnom AI generovaní kódu, kedy architekt navrhuje logiku a modely a AI ich mení na exaktný kód. Testovanie fyziky a vizuálu prebieha na lokálnom webovom serveri a stabilné verzie sú priebežne verejne publikované prostredníctvom platformy <strong>GitHub (Web)</strong>. Celý priebeh prác a stav architektúry je poctivo a priebežne dokumentovaný.</p>
+        <details style="border-left: 4px solid #8e44ad;">
+            <summary style="color: #8e44ad;">Ako? (Postup)</summary>
+            <div class="details-content">
+                <p style="line-height: 1.6; margin: 0;">Vývojový cyklus je postavený na iteratívnom AI generovaní kódu, kedy architekt navrhuje logiku a modely a AI ich mení na exaktný kód. Testovanie fyziky a vizuálu prebieha na lokálnom webovom serveri a stabilné verzie sú priebežne verejne publikované prostredníctvom platformy <strong>GitHub (Web)</strong>. Celý priebeh prác a stav architektúry je poctivo a priebežne dokumentovaný.</p>
+            </div>
+        </details>
 
-        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
+        <details style="border-left: 4px solid #d35400;">
+            <summary style="color: #d35400;">Bloková schéma (Softvér a Hardvér)</summary>
+            <div class="details-content">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 400px;">
+                        <h4 style="color: #2c3e50; text-align: center; margin-top: 0;">⚙️ Hardvérový Tok (Fyzický model)</h4>
+                        <div class="diagram-container">
+                            <div class="diagram-row">
+                                <div class="diagram-box box-blue">Kinetická energia<br><small>(Vietor)</small></div>
+                                <div class="diagram-arrow">&rarr;</div>
+                                <div class="diagram-box box-green">Aerodynamický Rotor<br><small>(Lopatky a ramená)</small></div>
+                            </div>
+                            <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
+                            <div class="diagram-row">
+                                <div class="diagram-box box-orange">Mechanický Regulátor<br><small>(Odstredivé závažia)</small></div>
+                                <div class="diagram-arrow">&larr;</div>
+                                <div class="diagram-box box-orange">Prenos momentu<br><small>(Hriadeľ)</small></div>
+                            </div>
+                            <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
+                            <div class="diagram-row">
+                                <div class="diagram-box box-red">Elektrická záťaž<br><small>(Výkon W)</small></div>
+                                <div class="diagram-arrow">&larr;</div>
+                                <div class="diagram-box box-blue">Generátor<br><small>(BLDC Hoverboard motor)</small></div>
+                            </div>
+                        </div>
+                    </div>
 
-        <h3 style="color: #d35400;">Bloková schéma (Softvér a Hardvér)</h3>
-        
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-            
-            <div style="flex: 1; min-width: 400px;">
-                <h4 style="color: #2c3e50; text-align: center;">⚙️ Hardvérový Tok (Fyzický model)</h4>
-                <div class="diagram-container">
-                    <div class="diagram-row">
-                        <div class="diagram-box box-blue">Kinetická energia<br><small>(Vietor)</small></div>
-                        <div class="diagram-arrow">&rarr;</div>
-                        <div class="diagram-box box-green">Aerodynamický Rotor<br><small>(Lopatky a ramená)</small></div>
-                    </div>
-                    <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
-                    <div class="diagram-row">
-                        <div class="diagram-box box-orange">Mechanický Regulátor<br><small>(Odstredivé závažia)</small></div>
-                        <div class="diagram-arrow">&larr;</div>
-                        <div class="diagram-box box-orange">Prenos momentu<br><small>(Hriadeľ)</small></div>
-                    </div>
-                    <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
-                    <div class="diagram-row">
-                        <div class="diagram-box box-red">Elektrická záťaž<br><small>(Výkon W)</small></div>
-                        <div class="diagram-arrow">&larr;</div>
-                        <div class="diagram-box box-blue">Generátor<br><small>(BLDC Hoverboard motor)</small></div>
+                    <div style="flex: 1; min-width: 400px;">
+                        <h4 style="color: #2c3e50; text-align: center; margin-top: 0;">💻 Softvérový Tok (Simulátor)</h4>
+                        <div class="diagram-container">
+                            <div class="diagram-row">
+                                <div class="diagram-box box-blue">Vstupy (UI / DOM)<br><small>(Slider, Tlačidlá)</small></div>
+                                <div class="diagram-arrow">&rarr;</div>
+                                <div class="diagram-box box-green">app.js<br><small>(Hlavná slučka)</small></div>
+                            </div>
+                            <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
+                            <div class="diagram-row">
+                                <div class="diagram-box box-orange">vawt_math.js<br><small>(CFD a Výpočty)</small></div>
+                                <div class="diagram-arrow">&harr;</div>
+                                <div class="diagram-box box-green">Matematický Model<br><small>(Moment, RPM)</small></div>
+                            </div>
+                            <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
+                            <div class="diagram-row" style="flex-wrap: wrap;">
+                                <div class="diagram-box box-blue">vawt_scene.js<br><small>(3D WebGL)</small></div>
+                                <div class="diagram-box box-orange">vawt_charts.js<br><small>(Telemetria 2D)</small></div>
+                                <div class="diagram-box box-red">vawt_audio.js<br><small>(Zvuk)</small></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </details>
 
-            <div style="flex: 1; min-width: 400px;">
-                <h4 style="color: #2c3e50; text-align: center;">💻 Softvérový Tok (Simulátor)</h4>
-                <div class="diagram-container">
-                    <div class="diagram-row">
-                        <div class="diagram-box box-blue">Vstupy (UI / DOM)<br><small>(Slider, Tlačidlá)</small></div>
-                        <div class="diagram-arrow">&rarr;</div>
-                        <div class="diagram-box box-green">app.js<br><small>(Hlavná slučka / Integrátor)</small></div>
-                    </div>
-                    <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
-                    <div class="diagram-row">
-                        <div class="diagram-box box-orange">vawt_math.js<br><small>(CFD a Výpočty)</small></div>
-                        <div class="diagram-arrow">&harr;</div>
-                        <div class="diagram-box box-green">Matematický Model<br><small>(Krútiaci moment, RPM)</small></div>
-                    </div>
-                    <div class="diagram-row"><div class="diagram-arrow">&darr;</div></div>
-                    <div class="diagram-row">
-                        <div class="diagram-box box-blue">vawt_scene.js<br><small>(3D WebGL / Kinematika)</small></div>
-                        <div class="diagram-box box-orange">vawt_charts.js<br><small>(Telemetria 2D)</small></div>
-                        <div class="diagram-box box-red">vawt_audio.js<br><small>(Procedurálny zvuk)</small></div>
-                    </div>
+        <details style="border-left: 4px solid #2c3e50;">
+            <summary style="color: #2c3e50;">🚀 Návod na použitie a testovanie</summary>
+            <div class="details-content" style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="background: #fdfdfd; padding: 15px; border-left: 4px solid #3498db; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <strong style="font-size: 1.05em;">1. Testovanie Aerodynamiky (Kármánove víry)</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95em;">Nastavte Rýchlosť vetra na <strong>10 m/s</strong> a zapnite <strong>CFD ZAPNUTÉ</strong>. Všímajte si modré prúdnice v 3D scéne. Lopatky rotora ich budú odrážať (zmena farby na žltú/oranžovú). Toto simuluje obtekanie krídlových profilov a turbulentné prúdenie v úplave turbíny.</p>
+                </div>
+
+                <div style="background: #fdfdfd; padding: 15px; border-left: 4px solid #27ae60; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <strong style="font-size: 1.05em;">2. Testovanie Odstredivého Regulátora (Ochrana)</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95em;">Zvýšte rýchlosť vetra na extrémnych <strong>30 m/s</strong>. Všímajte si stredový hriadeľ a posuvnú objímku s dvoma guľatými závažiami. Pri raste RPM (nad 400 otáčok) sa závažia odstredivou silou roztiahnu, čo posunie tiahla a okamžite <strong>zatvorí lopatky</strong>. Aerodynamický odpor klesne, turbína spomalí a prúdnice sa zmenia na červené.</p>
+                </div>
+
+                <div style="background: #fdfdfd; padding: 15px; border-left: 4px solid #f39c12; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <strong style="font-size: 1.05em;">3. Testovanie Elektrického Generátora (Záťaž a Výkon)</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95em;">V ľavom paneli venujte pozornosť sekcii <strong>Elektrická záťaž (Odpor)</strong>. Keď má turbína stabilné RPM, skúste <strong>znižovať elektrický odpor (Ω)</strong>. Zníženie odporu znamená vyšší prúd (A), čo vyvinie väčší protichodný elektromagnetický krútiaci moment generátora. Turbína začne fyzicky spomaľovať, ale Wattový výkon môže prechodne stúpnuť. Sledujte osciloskop pre hľadanie optimálneho bodu (MPPT).</p>
+                </div>
+
+                <div style="background: #fdfdfd; padding: 15px; border-left: 4px solid #9b59b6; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <strong style="font-size: 1.05em;">4. Konštrukčné a Vizuálne úpravy</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95em;">V strednom paneli meňte <strong>Polomer</strong> a <strong>Výšku</strong>. Graf radaru okamžite zaznamená disproporciu návrhu. Tlačidlami <strong>Pohľad ZHORA / ZBOKU</strong> a prepínačom <strong>REŽIM ORTOGRAFICKÝ (CAD)</strong> si overte presné lícovanie kinetických kĺbov a tiahel bez skreslenia perspektívy.</p>
+                </div>
+                
+                 <div style="background: #fdfdfd; padding: 15px; border-left: 4px solid #e74c3c; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <strong style="font-size: 1.05em;">5. Audiovizuálna Analýza</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95em;">Stlačte <strong>ZAPNÚŤ ZVUK</strong>. Zvuk je generovaný matematicky (žiadne nahraté MP3). Počujete aerodynamický šum, ktorého frekvencia rastie s rýchlosťou vetra, a mechanický zvuk rotora, ktorý presne korešponduje s otáčkami (RPM) generátora.</p>
                 </div>
             </div>
-        </div>
-
-        <hr style="border: 0; border-top: 1px dashed #ccc; margin: 30px 0;">
-
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px;">🚀 Návod na použitie a testovanie</h3>
-        
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #3498db; border-radius: 4px;">
-                <strong style="font-size: 1.1em;">1. Testovanie Aerodynamiky (Kármánove víry)</strong>
-                <p style="margin: 5px 0 0 0;">Nastavte Rýchlosť vetra na <strong>10 m/s</strong> a zapnite <strong>CFD ZAPNUTÉ</strong>. Všímajte si modré prúdnice v 3D scéne. Lopatky rotora ich budú odrážať (zmena farby na žltú/oranžovú). Toto simuluje obtekanie krídlových profilov a turbulentné prúdenie v úplave turbíny.</p>
-            </div>
-
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #27ae60; border-radius: 4px;">
-                <strong style="font-size: 1.1em;">2. Testovanie Odstredivého Regulátora (Ochrana)</strong>
-                <p style="margin: 5px 0 0 0;">Zvýšte rýchlosť vetra na extrémnych <strong>30 m/s</strong>. Všímajte si stredový hriadeľ a posuvnú objímku s dvoma guľatými závažiami. Pri raste RPM (nad 400 otáčok) sa závažia odstredivou silou roztiahnu, čo posunie tiahla a okamžite <strong>zatvorí lopatky</strong>. Aerodynamický odpor klesne, turbína spomalí a prúdnice sa zmenia na červené (obtekanie uzamknutého valca).</p>
-            </div>
-
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #f39c12; border-radius: 4px;">
-                <strong style="font-size: 1.1em;">3. Testovanie Elektrického Generátora (Záťaž a Výkon)</strong>
-                <p style="margin: 5px 0 0 0;">V ľavom paneli venujte pozornosť sekcii <strong>Elektrická záťaž (Odpor)</strong>. Keď má turbína stabilné RPM (napr. pri vetre 15 m/s), skúste <strong>znižovať elektrický odpor (Ω)</strong>. Zníženie odporu znamená vyšší prúd (A), čo vyvinie väčší protichodný elektromagnetický krútiaci moment generátora. Turbína začne fyzicky spomaľovať, ale Wattový výkon môže prechodne stúpnuť. Sledujte osciloskop v spodnej časti obrazovky pre hľadanie optimálneho bodu (MPPT).</p>
-            </div>
-
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #9b59b6; border-radius: 4px;">
-                <strong style="font-size: 1.1em;">4. Konštrukčné a Vizuálne úpravy</strong>
-                <p style="margin: 5px 0 0 0;">V strednom paneli meňte <strong>Polomer</strong> a <strong>Výšku</strong>. Graf radaru (Aktuálna štruktúra) okamžite zaznamená disproporciu návrhu. Tlačidlami <strong>Pohľad ZHORA / ZBOKU</strong> a prepínačom <strong>REŽIM ORTOGRAFICKÝ (CAD)</strong> si overte presné lícovanie kinetických kĺbov a tiahel bez skreslenia perspektívy.</p>
-            </div>
-            
-             <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #e74c3c; border-radius: 4px;">
-                <strong style="font-size: 1.1em;">5. Audiovizuálna Analýza</strong>
-                <p style="margin: 5px 0 0 0;">Stlačte <strong>ZAPNÚŤ ZVUK</strong>. Zvuk je generovaný matematicky (žiadne nahraté MP3). Počujete aerodynamický šum, ktorého frekvencia rastie s rýchlosťou vetra, a mechanický "bzučivý" zvuk rotora, ktorý presne korešponduje s otáčkami (RPM) generátora.</p>
-            </div>
-        </div>
+        </details>
 
     </div>
 </div>
 
-<script src="vawt_globals.js?v=5.3"></script>
-<script src="vawt_math.js?v=5.3"></script>
-<script src="vawt_ui.js?v=5.3"></script>
-<script src="vawt_audio.js?v=5.3"></script>
-<script src="vawt_charts.js?v=5.3"></script>
-<script src="vawt_scene.js?v=5.3"></script>
-<script src="app.js?v=5.3"></script>
+<script src="vawt_globals.js?v=5.4"></script>
+<script src="vawt_math.js?v=5.4"></script>
+<script src="vawt_ui.js?v=5.4"></script>
+<script src="vawt_audio.js?v=5.4"></script>
+<script src="vawt_charts.js?v=5.4"></script>
+<script src="vawt_scene.js?v=5.4"></script>
+<script src="app.js?v=5.4"></script>
 
 </body>
 </html>`
@@ -232,6 +249,6 @@ const updatePackage = {
 
 Object.entries(updatePackage.files).forEach(([fileName, content]) => {
     fs.writeFileSync(path.join(__dirname, fileName), content, 'utf8');
-    console.log("✅ Aktualizované: Pridané Schémy a Návod do " + fileName);
+    console.log("✅ Implementované skladacie Accordion panely: " + fileName);
 });
-console.log("\\n🚀 Verzia V5.3.0 nasadená. Otvor si Dokumentáciu v UI.");
+console.log("\\n🚀 Verzia V5.4.0 nasadená.");
