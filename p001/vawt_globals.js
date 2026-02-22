@@ -16,3 +16,4 @@ var TRAIL_LENGTH = 15;
 // Audio premenn\u00E9
 var audioCtx, windGain, bladeGain, windFilter, bladeOsc;
 var audioInitialized = false;
+var isAudioPlaying = false;

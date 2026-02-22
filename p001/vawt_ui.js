@@ -59,3 +59,7 @@ window.setCameraView = function(type) {
 }
 // Pridaj do initUI() funkcie:
 document.getElementById("btn-audio-v42").innerText = "ZAPN\u00DA\u0164 ZVUK";
+var audioBtn = document.getElementById("btn-audio-v42");
+    if(audioBtn) {
+        audioBtn.innerText = "ZAPN\u00DA\u0164 ZVUK";
+    }
