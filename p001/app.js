@@ -1,8 +1,3 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.4 (Gener\u00E1tor)
- * S\u00DABOR: app.js
- */
-
 function animate() {
     requestAnimationFrame(animate);
     let wind = parseFloat(document.getElementById('wind-v40').value);
@@ -19,26 +14,23 @@ function animate() {
     let aeroTorque = (wind * wind) * aeroEfficiency * (rad * h) * 1.5; 
     let frictionTorque = (currentRPM * 0.8) + (currentRPM > 0 ? 5.0 : 0); 
     
-    // --- G4.4: FYZIKA GENER\u00C1TORA (BLDC 350W, 36V) ---
+    // G4.4: Fyzika Gener\u00E1tora
     let Kv = 15.0; 
     let Kt = 60.0 / (2.0 * Math.PI * Kv); 
     let R_ph = 0.2; 
     
-    // Na\u010D\u00EDtanie dynamickej z\u00E1\u0165a\u017Ee z UI
-    let R_load = 5.0; // Fallback
+    let R_load = 5.0;
     let loadEl = document.getElementById('load-v44');
     if(loadEl) {
         R_load = parseFloat(loadEl.value);
         document.getElementById('val-load-v44').innerText = R_load.toFixed(1);
     }
     
-    // V\u00FDpo\u010Det elektrick\u00FDch parametrov
     let E_emf = currentRPM / Kv;
     let I_gen = E_emf / (R_ph + R_load);
     let P_elec = I_gen * I_gen * R_load;
     let genTorque = Kt * I_gen;
 
-    // Odoslanie vypo\u010D\u00EDtan\u00FDch hodn\u00F4t do UI
     let voltsEl = document.getElementById('val-volts-v44');
     if(voltsEl) {
         voltsEl.innerText = E_emf.toFixed(1);
@@ -46,10 +38,6 @@ function animate() {
         document.getElementById('val-watts-v44').innerText = Math.round(P_elec);
     }
 
-    // V\u00FDsledn\u00FD moment = aero (hnac\u00ED) - trenie (brzdn\u00FD) - gener\u00E1tor (brzdn\u00FD)
-    let netTorque = aeroTorque - frictionTorque - genTorque;;
-
-    // V\u00FDsledn\u00FD kr\u00FAtiaci moment m\u00E1 teraz 3 zlo\u017Eky: aero (hnac\u00ED), mechanick\u00E9 trenie (brzdn\u00FD) a elektromagnetick\u00FD odpor (brzdn\u00FD)
     let netTorque = aeroTorque - frictionTorque - genTorque;
     let angularAcc = netTorque / momentOfInertia; 
     
@@ -64,13 +52,14 @@ function animate() {
 
     let isClosed = currentAngle < 5;
     let flowStateEl = document.getElementById("ui-flow-state-v40");
-    if(isClosed) {
-        flowStateEl.innerHTML = "<span style='color:#e74c3c;'>Analytick\u00E9 potenci\u00E1lne obtekanie uzamknut\u00E9ho valca</span>";
-    } else {
-        flowStateEl.innerHTML = "<span style='color:#27ae60;'>Kol\u00EDzne kr\u00EDdlov\u00E9 v\u00EDrenie s odrazmi pr\u00FAdnic</span>";
+    if(flowStateEl) {
+        if(isClosed) {
+            flowStateEl.innerHTML = "<span style='color:#e74c3c;'>Analytick\u00E9 potenci\u00E1lne obtekanie uzamknut\u00E9ho valca</span>";
+        } else {
+            flowStateEl.innerHTML = "<span style='color:#27ae60;'>Kol\u00EDzne kr\u00EDdlov\u00E9 v\u00EDrenie s odrazmi pr\u00FAdnic</span>";
+        }
     }
 
-    // Kinematika 3D komponentov
     let sR = rad + 0.6, hTS = h/2 + 0.5, hBS = -h/2 - 0.5, offset = parseFloat(document.getElementById('offset-v40').value);
     topHub.position.y = hTS; bottomHub.position.y = hBS; motorMesh.position.y = hBS - 0.25;
     for(let i=0; i<3; i++) {
@@ -109,7 +98,6 @@ function animate() {
         alignCylinder(govArmsB[i], new THREE.Vector3(0, slidingCollar.position.y, 0), govWeights[i].position);
     }
 
-    // CFD Pr\u00FAdnice
     if(isCfd) {
         let U = wind === 0 ? 0.05 : wind * 0.1;
         let closedR = rad + 0.15, closedR2 = closedR * closedR;
@@ -184,21 +172,16 @@ function animate() {
     document.getElementById('val-rotor-mass-v40').innerText = Math.round(estimatedRotorMass);
     document.getElementById('val-rpm-v40').innerText = Math.round(currentRPM);
 
-    // Integr\u00E1cia grafov a audia (G4.3)
-    if (typeof initCharts === "function" && chartUpdateCounter === 0) {
-        initCharts();
-    }
+    if (typeof initCharts === "function" && chartUpdateCounter === 0) { initCharts(); }
     if (typeof updateCharts === "function") {
         updateCharts(currentRPM, netTorque, wind, P_elec, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
     }
-    if (typeof updateAudio === "function") {
-        updateAudio(wind, currentRPM);
-    }
+    if (typeof updateAudio === "function") { updateAudio(wind, currentRPM); }
 
     renderer.render(scene, activeCamera);
 }
 
-// \u0160TART APLIK\u00C1CIE
+// Inicializ\u00E1cia
 initUI();
 initScene();
 animate();

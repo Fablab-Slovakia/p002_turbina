@@ -1,13 +1,21 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.1
- * S\u00DABOR: vawt_ui.js
- * POPIS: Spr\u00E1va u\u017E\u00EDvate\u013Esk\u00E9ho rozhrania a textov.
- */
 function initUI() {
-    document.getElementById("ui-title-v40").innerText = "VAWT V 4.3: Modul\u00E1rna arch.";
+    document.getElementById("ui-title-v40").innerText = "VAWT G4.4: Gener\u00E1tor a Watty";
     document.getElementById("ui-wind-lbl-v40").innerText = "R\u00FDchlos\u0165 vetra (m/s):";
     document.getElementById("ui-time-lbl-v40").innerText = "Spomalenie \u010Dasu:";
     document.getElementById("ui-offset-lbl-v40").innerText = "V\u00FD\u0161kov\u00FD offset p\u00E1k (m):";
+    
+    var loadLbl = document.getElementById("ui-load-lbl-v44");
+    if(loadLbl) {
+        loadLbl.innerText = "Elektrick\u00E1 z\u00E1\u0165a\u017E (Odpor):";
+        document.getElementById("ohm-sym-v44").innerText = "\u03A9";
+        document.getElementById("ui-volts-lbl-v44").innerText = "Nap\u00E4tie(V)";
+        document.getElementById("ui-amps-lbl-v44").innerText = "Pr\u00FAd(A)";
+        document.getElementById("ui-watts-lbl-v44").innerText = "V\u00FDkon(W)";
+    }
+
+    var btnAudio = document.getElementById("btn-audio-v42");
+    if(btnAudio) { btnAudio.innerText = "ZAPN\u00DA\u0164 ZVUK"; }
+
     document.getElementById("ui-mass-lbl-v40").innerText = "Hmota rotora:";
     document.getElementById("btn-cfd-v40").innerText = "CFD ZAPNUT\u00C9";
     document.getElementById("btn-proj-v40").innerText = "RE\u017EIM: PERSPEKT\u00CDVA";
@@ -19,28 +27,6 @@ function initUI() {
     document.getElementById("lbl-lev-v40").innerText = "P\u00E1ka (cm):";
     document.getElementById("lbl-mass-v40").innerText = "Z\u00E1va\u017Eie (kg):";
     document.getElementById("lbl-damp-v40").innerText = "Tlmi\u010D (Hustota):";
-    // -- K\u00F3d pre vawt_ui.js (prida\u0165 do funkcie initUI) --
-    
-    document.getElementById("ui-title-v40").innerText = "VAWT G4.4: Gener\u00E1tor"; // Zmena titulu
-    
-    // Texty pre gener\u00E1tor
-    var loadLbl = document.getElementById("ui-load-lbl-v44");
-    if(loadLbl) {
-        loadLbl.innerText = "Elektrick\u00E1 z\u00E1\u0165a\u017E (Odpor):";
-        document.getElementById("ohm-sym-v44").innerText = "\u03A9";
-        document.getElementById("ui-volts-lbl-v44").innerText = "Nap\u00E4tie(V)";
-        document.getElementById("ui-amps-lbl-v44").innerText = "Pr\u00FAd(A)";
-        document.getElementById("ui-watts-lbl-v44").innerText = "V\u00FDkon(W)";
-    }
-    document.getElementById("ui-title-v40").innerText = "VAWT G4.4: Gener\u00E1tor a Watty";
-    var loadLbl = document.getElementById("ui-load-lbl-v44");
-    if(loadLbl) {
-        loadLbl.innerText = "Elektrick\u00E1 z\u00E1\u0165a\u017E (Odpor):";
-        document.getElementById("ohm-sym-v44").innerText = "\u03A9";
-        document.getElementById("ui-volts-lbl-v44").innerText = "Nap\u00E4tie(V)";
-        document.getElementById("ui-amps-lbl-v44").innerText = "Pr\u00FAd(A)";
-        document.getElementById("ui-watts-lbl-v44").innerText = "V\u00FDkon(W)";
-    }
 }
 
 window.toggleProjection = function() {
@@ -79,9 +65,3 @@ window.setCameraView = function(type) {
     if(isOrthographic) { toggleProjection(); toggleProjection(); }
     controls.update();
 }
-// Pridaj do initUI() funkcie:
-document.getElementById("btn-audio-v42").innerText = "ZAPN\u00DA\u0164 ZVUK";
-var audioBtn = document.getElementById("btn-audio-v42");
-    if(audioBtn) {
-        audioBtn.innerText = "ZAPN\u00DA\u0164 ZVUK";
-    }

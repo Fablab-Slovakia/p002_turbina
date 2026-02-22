@@ -1,8 +1,3 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.1
- * S\u00DABOR: vawt_scene.js
- * POPIS: Inicializ\u00E1cia 3D sc\u00E9ny a geometrie (Mesh generation).
- */
 function initScene() {
     const container = document.getElementById('canvas-v40');
     scene = new THREE.Scene();

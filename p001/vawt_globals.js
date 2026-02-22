@@ -1,8 +1,3 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.1
- * S\u00DABOR: vawt_globals.js
- * POPIS: Glob\u00E1lne premenn\u00E9 pre zdie\u013Eanie stavu medzi modulmi.
- */
 var scene, renderer, controls, activeCamera, perspCamera, orthoCamera;
 var rotorGroup, statorGroup, cfdGroup;
 var isOrthographic = false, isCfd = true;
@@ -13,13 +8,11 @@ var govWeights = [], govArmsT = [], govArmsB = [], topCollar, slidingCollar;
 var statorPillars = [], topStruts = [], botStruts = [], mountLegs = [];
 var streamlines = [];
 var TRAIL_LENGTH = 15;
-// Audio premenn\u00E9
+
 var audioCtx, windGain, bladeGain, windFilter, bladeOsc;
 var audioInitialized = false;
 var isAudioPlaying = false;
-// Analytick\u00E9 a grafov\u00E9 premenn\u00E9
-var chartTelemetry, chartParams;
-var timeHistory = [], rpmHistory = [], torqueHistory = [], windHistory = [];
-var chartUpdateCounter = 0; // Pre optimaliz\u00E1ciu v\u00FDkonu (nechceme kresli\u0165 graf 60x za sekundu)
-var wattsHistory = [];
 
+var chartTelemetry, chartParams;
+var timeHistory = [], rpmHistory = [], torqueHistory = [], windHistory = [], wattsHistory = [];
+var chartUpdateCounter = 0;

@@ -1,9 +1,3 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.4
- * S\u00DABOR: vawt_charts.js
- * POPIS: Analytick\u00FD modul s elektrick\u00FDm v\u00FDkonom.
- */
-
 function initCharts() {
     var ctxTel = document.getElementById('canvas-telemetry').getContext('2d');
     chartTelemetry = new Chart(ctxTel, {
@@ -14,7 +8,6 @@ function initCharts() {
                 { label: 'RPM', borderColor: '#e74c3c', data: rpmHistory, yAxisID: 'y', tension: 0.2, pointRadius: 0 },
                 { label: 'Moment (Nm)', borderColor: '#27ae60', data: torqueHistory, yAxisID: 'y1', tension: 0.2, pointRadius: 0 },
                 { label: 'Vietor (m/s)', borderColor: '#3498db', data: windHistory, yAxisID: 'y2', tension: 0.2, pointRadius: 0, borderDash: [5, 5] },
-                // Nov\u00E1 krivka pre elektrick\u00FD v\u00FDkon
                 { label: 'V\u00FDkon (W)', borderColor: '#f39c12', data: wattsHistory, yAxisID: 'y3', tension: 0.2, pointRadius: 0 }
             ]
         },
@@ -60,7 +53,7 @@ function updateCharts(rpm, torque, wind, watts, rad, h, lev, mass, damp) {
     rpmHistory.push(rpm);
     torqueHistory.push(torque);
     windHistory.push(wind);
-    wattsHistory.push(watts); // Uklad\u00E1nie Wattov
+    wattsHistory.push(watts);
 
     if (timeHistory.length > 50) {
         timeHistory.shift(); rpmHistory.shift(); torqueHistory.shift(); windHistory.shift(); wattsHistory.shift();

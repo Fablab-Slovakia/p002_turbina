@@ -1,8 +1,3 @@
-/**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.1
- * S\u00DABOR: vawt_math.js
- * POPIS: Matematick\u00E9 a pomocn\u00E9 funkcie.
- */
 function distToSegment(px, pz, ax, az, bx, bz) {
     let l2 = (bx - ax)*(bx - ax) + (bz - az)*(bz - az);
     if (l2 === 0) return Math.sqrt((px-ax)*(px-ax) + (pz-az)*(pz-az));
