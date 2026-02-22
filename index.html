@@ -3,78 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAWT Simulator G4.0</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <title>DTV Rozcestnik</title>
     <style>
-        body { margin: 0; padding: 20px; background-color: #ecf0f1; display: flex; justify-content: center; }
+        body { 
+            font-family: monospace; 
+            background-color: #ecf0f1; 
+            color: #2c3e50; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        .container { 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            border: 1px solid #bdc3c7; 
+            max-width: 800px; 
+            width: 100%; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        h1 { 
+            color: #2980b9; 
+            border-bottom: 2px solid #2980b9; 
+            padding-bottom: 10px; 
+            margin-top: 0;
+        }
+        p { 
+            font-size: 1.1em; 
+            line-height: 1.6; 
+        }
+        a.link-btn { 
+            display: inline-block; 
+            margin: 10px 0; 
+            padding: 12px 20px; 
+            background-color: #27ae60; 
+            color: #fff; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: background 0.3s; 
+        }
+        a.link-btn:hover { 
+            background-color: #2ecc71; 
+        }
+        a.link-back { 
+            display: inline-block; 
+            margin-top: 30px; 
+            padding: 10px 15px; 
+            background-color: #7f8c8d; 
+            color: #fff; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-weight: bold; 
+        }
+        a.link-back:hover { 
+            background-color: #95a5a6; 
+        }
+        .course-link { 
+            color: #3498db; 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+        .course-link:hover { 
+            text-decoration: underline; 
+        }
+        .project-box {
+            margin-top: 30px; 
+            padding: 20px; 
+            background: #f8f9fa; 
+            border-left: 4px solid #27ae60;
+        }
     </style>
 </head>
 <body>
 
-<div id="vawd-dashboard-v40" style="font-family: monospace; border: 1px solid #2c3e50; padding: 15px; max-width: 1300px; background-color: #ffffff; display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
-    
-    <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
-        <h3 id="ui-title-v40" style="margin: 0; color: #27ae60; border-bottom: 2px solid #27ae60; padding-bottom: 5px;"></h3>
-        
-        <div style="background: #fff; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-            <label id="ui-wind-lbl-v40" style="font-weight: bold; color: #2980b9;"></label>
-            <input type="range" id="wind-v40" min="0" max="36" value="15" step="0.5" style="width: 100%; cursor: pointer;">
-            <div style="text-align: right;"><span id="val-wind-v40">15.0</span> m/s</div>
-        </div>
+<div class="container">
+    <h1 id="main-title"></h1>
+    <p>
+        <span id="desc-text"></span><br>
+        <a href="https://dai.fmph.uniba.sk/courses/dtv/index.php/DTV" class="course-link" target="_blank">https://dai.fmph.uniba.sk/courses/dtv/index.php/DTV</a>
+    </p>
 
-        <div style="background: #fff; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-            <label id="ui-time-lbl-v40" style="font-weight: bold; color: #8e44ad;"></label>
-            <input type="range" id="time-v40" min="0" max="1" value="0.2" step="0.05" style="width: 100%; cursor: pointer;">
-            <div style="text-align: right;"><span id="val-time-v40">0.20</span> x</div>
-        </div>
-
-        <div style="background: #fff; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-            <label id="ui-offset-lbl-v40" style="font-weight: bold; color: #e67e22;"></label>
-            <input type="range" id="offset-v40" min="-0.8" max="0.8" value="0" step="0.05" style="width: 100%; cursor: pointer;">
-            <div style="text-align: right;"><span id="val-offset-v40">0.0</span> m</div>
-        </div>
-
-        <div style="display: flex; gap: 5px;">
-            <button id="btn-cfd-v40" onclick="toggleCFD()" style="flex: 1; padding: 10px; background-color: #3498db; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></button>
-            <button id="btn-proj-v40" onclick="toggleProjection()" style="flex: 1; padding: 10px; cursor: pointer; background: #2c3e50; color: white; border: none; border-radius: 4px; font-weight: bold;"></button>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #fff; padding: 10px; border-radius: 5px; border: 1px solid #ddd; font-size: 0.85em;">
-            <div>RPM: <span id="val-rpm-v40" style="font-weight: bold;">0</span></div>
-            <div style="text-align: right;"><span id="ui-mass-lbl-v40"></span> <span id="val-rotor-mass-v40" style="color: #2c3e50; font-weight: bold;">0</span> kg</div>
-            <div style="grid-column: 1 / -1; border-top: 1px dashed #ccc; padding-top: 5px; font-weight: bold;" id="ui-flow-state-v40"></div>
-        </div>
-        
-        <div style="display: flex; gap: 5px; margin-top: auto;">
-            <button id="btn-cam-top-v40" onclick="setCameraView('top')" style="flex: 1; padding: 8px; cursor: pointer; background: #34495e; color: white; border: none; border-radius: 4px;"></button>
-            <button id="btn-cam-side-v40" onclick="setCameraView('side')" style="flex: 1; padding: 8px; cursor: pointer; background: #34495e; color: white; border: none; border-radius: 4px;"></button>
-        </div>
+    <div class="project-box">
+        <a href="p001/" class="link-btn" id="link-p001"></a>
     </div>
 
-    <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 8px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
-        <h4 id="ui-dim-title-v40" style="margin: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px;"></h4>
-        
-        <label id="lbl-rad-v40"></label>
-        <input type="range" id="rad-v40" min="0.8" max="2.5" value="1.2" step="0.1" style="width: 100%; cursor: pointer;">
-        
-        <label id="lbl-h-v40"></label>
-        <input type="range" id="h-v40" min="1.0" max="3.0" value="1.5" step="0.1" style="width: 100%; cursor: pointer;">
-        
-        <label id="lbl-lev-v40"></label>
-        <input type="range" id="lev-v40" min="10" max="40" value="25" step="1" style="width: 100%; cursor: pointer;">
-        
-        <label id="lbl-mass-v40"></label>
-        <input type="range" id="mass-v40" min="1" max="15" value="8" step="0.5" style="width: 100%; cursor: pointer;">
-        
-        <label id="lbl-damp-v40"></label>
-        <input type="range" id="damp-v40" min="1" max="10" value="5" step="1" style="width: 100%; cursor: pointer;">
-    </div>
-
-    <div id="canvas-v40" style="flex: 2; min-width: 450px; height: 600px; background: #ffffff; border: 1px solid #bdc3c7; border-radius: 8px; overflow: hidden; position: relative;"></div>
+    <a href="https://www.fablab.sk" class="link-back" id="link-fablab"></a>
 </div>
 
-<script src="app.js"></script>
+<script>
+    // Injekcia textov pomocou Unicode Escapes pre ochranu pred de\u0161trukciou k\u00F3dovania
+    document.title = "Digit\u00E1lne Technol\u00F3gie V\u00FDroby";
+    document.getElementById("main-title").innerText = "Digit\u00E1lne Technol\u00F3gie V\u00FDroby";
+    document.getElementById("desc-text").innerText = "Projekty a pr\u00EDklady pre predmet:";
+    document.getElementById("link-p001").innerText = "Projekt 001: Auton\u00F3mna VAWT turb\u00EDna (G4.1)";
+    document.getElementById("link-fablab").innerText = "\u2190 N\u00E1vrat na str\u00E1nku www.fablab.sk";
+</script>
 
 </body>
 </html>
