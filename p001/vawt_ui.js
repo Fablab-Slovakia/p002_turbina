@@ -19,6 +19,28 @@ function initUI() {
     document.getElementById("lbl-lev-v40").innerText = "P\u00E1ka (cm):";
     document.getElementById("lbl-mass-v40").innerText = "Z\u00E1va\u017Eie (kg):";
     document.getElementById("lbl-damp-v40").innerText = "Tlmi\u010D (Hustota):";
+    // -- K\u00F3d pre vawt_ui.js (prida\u0165 do funkcie initUI) --
+    
+    document.getElementById("ui-title-v40").innerText = "VAWT G4.4: Gener\u00E1tor"; // Zmena titulu
+    
+    // Texty pre gener\u00E1tor
+    var loadLbl = document.getElementById("ui-load-lbl-v44");
+    if(loadLbl) {
+        loadLbl.innerText = "Elektrick\u00E1 z\u00E1\u0165a\u017E (Odpor):";
+        document.getElementById("ohm-sym-v44").innerText = "\u03A9";
+        document.getElementById("ui-volts-lbl-v44").innerText = "Nap\u00E4tie(V)";
+        document.getElementById("ui-amps-lbl-v44").innerText = "Pr\u00FAd(A)";
+        document.getElementById("ui-watts-lbl-v44").innerText = "V\u00FDkon(W)";
+    }
+    document.getElementById("ui-title-v40").innerText = "VAWT G4.4: Gener\u00E1tor a Watty";
+    var loadLbl = document.getElementById("ui-load-lbl-v44");
+    if(loadLbl) {
+        loadLbl.innerText = "Elektrick\u00E1 z\u00E1\u0165a\u017E (Odpor):";
+        document.getElementById("ohm-sym-v44").innerText = "\u03A9";
+        document.getElementById("ui-volts-lbl-v44").innerText = "Nap\u00E4tie(V)";
+        document.getElementById("ui-amps-lbl-v44").innerText = "Pr\u00FAd(A)";
+        document.getElementById("ui-watts-lbl-v44").innerText = "V\u00FDkon(W)";
+    }
 }
 
 window.toggleProjection = function() {

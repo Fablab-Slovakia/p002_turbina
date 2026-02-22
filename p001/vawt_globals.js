@@ -21,3 +21,5 @@ var isAudioPlaying = false;
 var chartTelemetry, chartParams;
 var timeHistory = [], rpmHistory = [], torqueHistory = [], windHistory = [];
 var chartUpdateCounter = 0; // Pre optimaliz\u00E1ciu v\u00FDkonu (nechceme kresli\u0165 graf 60x za sekundu)
+var wattsHistory = [];
+

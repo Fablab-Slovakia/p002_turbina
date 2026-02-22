@@ -21,14 +21,33 @@ function animate() {
     
     // --- G4.4: FYZIKA GENER\u00C1TORA (BLDC 350W, 36V) ---
     let Kv = 15.0; 
-    let Kt = 60.0 / (2.0 * Math.PI * Kv); // cca 0.636 Nm/A
+    let Kt = 60.0 / (2.0 * Math.PI * Kv); 
     let R_ph = 0.2; 
-    let R_load = 5.0; // Statick\u00E1 simulovan\u00E1 z\u00E1\u0165a\u017E (Ohm)
     
+    // Na\u010D\u00EDtanie dynamickej z\u00E1\u0165a\u017Ee z UI
+    let R_load = 5.0; // Fallback
+    let loadEl = document.getElementById('load-v44');
+    if(loadEl) {
+        R_load = parseFloat(loadEl.value);
+        document.getElementById('val-load-v44').innerText = R_load.toFixed(1);
+    }
+    
+    // V\u00FDpo\u010Det elektrick\u00FDch parametrov
     let E_emf = currentRPM / Kv;
     let I_gen = E_emf / (R_ph + R_load);
     let P_elec = I_gen * I_gen * R_load;
     let genTorque = Kt * I_gen;
+
+    // Odoslanie vypo\u010D\u00EDtan\u00FDch hodn\u00F4t do UI
+    let voltsEl = document.getElementById('val-volts-v44');
+    if(voltsEl) {
+        voltsEl.innerText = E_emf.toFixed(1);
+        document.getElementById('val-amps-v44').innerText = I_gen.toFixed(2);
+        document.getElementById('val-watts-v44').innerText = Math.round(P_elec);
+    }
+
+    // V\u00FDsledn\u00FD moment = aero (hnac\u00ED) - trenie (brzdn\u00FD) - gener\u00E1tor (brzdn\u00FD)
+    let netTorque = aeroTorque - frictionTorque - genTorque;;
 
     // V\u00FDsledn\u00FD kr\u00FAtiaci moment m\u00E1 teraz 3 zlo\u017Eky: aero (hnac\u00ED), mechanick\u00E9 trenie (brzdn\u00FD) a elektromagnetick\u00FD odpor (brzdn\u00FD)
     let netTorque = aeroTorque - frictionTorque - genTorque;
@@ -170,7 +189,7 @@ function animate() {
         initCharts();
     }
     if (typeof updateCharts === "function") {
-        updateCharts(currentRPM, netTorque, wind, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
+        updateCharts(currentRPM, netTorque, wind, P_elec, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
     }
     if (typeof updateAudio === "function") {
         updateAudio(wind, currentRPM);
