@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAWT Simulator G4.0</title>
+    <title>VAWT Simulator G4.2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <style>
@@ -14,7 +14,7 @@
 
 <div id="vawd-dashboard-v40" style="font-family: monospace; border: 1px solid #2c3e50; padding: 15px; max-width: 1300px; background-color: #ffffff; display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
     
-   <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
+    <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
         <h3 id="ui-title-v40" style="margin: 0; color: #27ae60; border-bottom: 2px solid #27ae60; padding-bottom: 5px;"></h3>
         
         <div style="background: #fff; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
@@ -53,6 +53,7 @@
             <button id="btn-cam-side-v40" onclick="setCameraView('side')" style="flex: 1; padding: 8px; cursor: pointer; background: #34495e; color: white; border: none; border-radius: 4px;"></button>
         </div>
     </div>
+
     <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 8px; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6;">
         <h4 id="ui-dim-title-v40" style="margin: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px;"></h4>
         
@@ -78,9 +79,9 @@
 <script src="vawt_globals.js"></script>
 <script src="vawt_math.js"></script>
 <script src="vawt_ui.js"></script>
+<script src="vawt_audio.js"></script>
 <script src="vawt_scene.js"></script>
 <script src="app.js"></script>
-<button id="btn-audio-v42" onclick="toggleAudio()" style="flex: 1; padding: 10px; background-color: #f39c12; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></button><script src="vawt_audio.js"></script>
 
 </body>
 </html>
