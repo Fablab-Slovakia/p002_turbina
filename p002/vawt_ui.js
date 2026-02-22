@@ -1,5 +1,5 @@
 function initUI() {
-    document.getElementById("ui-title-v40").innerText = "VAWT V5.0: Autonómny systém";
+    document.getElementById("ui-title-v40").innerText = "VAWT V5.2: Autonómny systém";
     document.getElementById("ui-wind-lbl-v40").innerText = "Rýchlosť vetra (m/s):";
     document.getElementById("ui-time-lbl-v40").innerText = "Spomalenie času:";
     document.getElementById("ui-offset-lbl-v40").innerText = "Výškový offset pák (m):";
@@ -64,4 +64,12 @@ window.setCameraView = function(type) {
     controls.target.set(0,0,0);
     if(isOrthographic) { toggleProjection(); toggleProjection(); }
     controls.update();
+}
+
+window.openDocs = function() {
+    document.getElementById('docs-modal').style.display = 'flex';
+}
+
+window.closeDocs = function() {
+    document.getElementById('docs-modal').style.display = 'none';
 }
