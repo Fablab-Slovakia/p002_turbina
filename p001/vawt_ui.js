@@ -57,3 +57,5 @@ window.setCameraView = function(type) {
     if(isOrthographic) { toggleProjection(); toggleProjection(); }
     controls.update();
 }
+// Pridaj do initUI() funkcie:
+document.getElementById("btn-audio-v42").innerText = "ZAPN\u00DA\u0164 ZVUK";

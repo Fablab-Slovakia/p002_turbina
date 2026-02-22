@@ -151,7 +151,15 @@ function animate() {
     document.getElementById('val-wind-v40').innerText = wind.toFixed(1);
     document.getElementById('val-rotor-mass-v40').innerText = Math.round(estimatedRotorMass);
     document.getElementById('val-rpm-v40').innerText = Math.round(currentRPM);
+// -- K\u00F3d pre app.js -- //
+    
+    // Aktualiz\u00E1cia audio synt\u00E9zy na z\u00E1klade fyziky
+    if (typeof updateAudio === "function") {
+        updateAudio(wind, currentRPM);
+    }
 
+    // Predch\u00E1dzaj\u00FAci p\u00F4vodn\u00FD k\u00F3d:
+    renderer.render(scene, activeCamera);
     renderer.render(scene, activeCamera);
 }
 

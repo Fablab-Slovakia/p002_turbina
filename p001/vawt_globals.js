@@ -13,3 +13,6 @@ var govWeights = [], govArmsT = [], govArmsB = [], topCollar, slidingCollar;
 var statorPillars = [], topStruts = [], botStruts = [], mountLegs = [];
 var streamlines = [];
 var TRAIL_LENGTH = 15;
+// Audio premenn\u00E9
+var audioCtx, windGain, bladeGain, windFilter, bladeOsc;
+var audioInitialized = false;
