@@ -4,7 +4,7 @@
  * POPIS: Spr\u00E1va u\u017E\u00EDvate\u013Esk\u00E9ho rozhrania a textov.
  */
 function initUI() {
-    document.getElementById("ui-title-v40").innerText = "VAWT G4.1: Modul\u00E1rna arch.";
+    document.getElementById("ui-title-v40").innerText = "VAWT V 4.3: Modul\u00E1rna arch.";
     document.getElementById("ui-wind-lbl-v40").innerText = "R\u00FDchlos\u0165 vetra (m/s):";
     document.getElementById("ui-time-lbl-v40").innerText = "Spomalenie \u010Dasu:";
     document.getElementById("ui-offset-lbl-v40").innerText = "V\u00FD\u0161kov\u00FD offset p\u00E1k (m):";

@@ -159,6 +159,21 @@ function animate() {
     }
 
     // Predch\u00E1dzaj\u00FAci p\u00F4vodn\u00FD k\u00F3d:
+// -- K\u00F3d pre app.js -- //
+    
+    // In\u0161tal\u00E1cia grafov pri prvom prechode
+    if (typeof initCharts === "function" && chartUpdateCounter === 0) {
+        initCharts();
+    }
+
+    // Odoslanie d\u00E1t do telemetrie
+    if (typeof updateCharts === "function") {
+        updateCharts(currentRPM, netTorque, wind, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
+    }
+    
+    // Predch\u00E1dzaj\u00FAci p\u00F4vodn\u00FD k\u00F3d:
+    renderer.render(scene, activeCamera);
+
     renderer.render(scene, activeCamera);
     renderer.render(scene, activeCamera);
 }

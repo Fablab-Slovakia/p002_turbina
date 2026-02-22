@@ -17,3 +17,7 @@ var TRAIL_LENGTH = 15;
 var audioCtx, windGain, bladeGain, windFilter, bladeOsc;
 var audioInitialized = false;
 var isAudioPlaying = false;
+// Analytick\u00E9 a grafov\u00E9 premenn\u00E9
+var chartTelemetry, chartParams;
+var timeHistory = [], rpmHistory = [], torqueHistory = [], windHistory = [];
+var chartUpdateCounter = 0; // Pre optimaliz\u00E1ciu v\u00FDkonu (nechceme kresli\u0165 graf 60x za sekundu)
