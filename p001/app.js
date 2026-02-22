@@ -1,7 +1,6 @@
 /**
- * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.1
+ * PROJEKT: Auton\u00F3mna VAWT turb\u00EDna - G4.4 (Gener\u00E1tor)
  * S\u00DABOR: app.js
- * POPIS: Core engine, fyzik\u00E1lna slu\u010Dka a orchestr\u00E1cia cel\u00E9ho syst\u00E9mu.
  */
 
 function animate() {
@@ -20,7 +19,19 @@ function animate() {
     let aeroTorque = (wind * wind) * aeroEfficiency * (rad * h) * 1.5; 
     let frictionTorque = (currentRPM * 0.8) + (currentRPM > 0 ? 5.0 : 0); 
     
-    let netTorque = aeroTorque - frictionTorque;
+    // --- G4.4: FYZIKA GENER\u00C1TORA (BLDC 350W, 36V) ---
+    let Kv = 15.0; 
+    let Kt = 60.0 / (2.0 * Math.PI * Kv); // cca 0.636 Nm/A
+    let R_ph = 0.2; 
+    let R_load = 5.0; // Statick\u00E1 simulovan\u00E1 z\u00E1\u0165a\u017E (Ohm)
+    
+    let E_emf = currentRPM / Kv;
+    let I_gen = E_emf / (R_ph + R_load);
+    let P_elec = I_gen * I_gen * R_load;
+    let genTorque = Kt * I_gen;
+
+    // V\u00FDsledn\u00FD kr\u00FAtiaci moment m\u00E1 teraz 3 zlo\u017Eky: aero (hnac\u00ED), mechanick\u00E9 trenie (brzdn\u00FD) a elektromagnetick\u00FD odpor (brzdn\u00FD)
+    let netTorque = aeroTorque - frictionTorque - genTorque;
     let angularAcc = netTorque / momentOfInertia; 
     
     currentRPM += angularAcc * timeScale * 20; 
@@ -40,6 +51,7 @@ function animate() {
         flowStateEl.innerHTML = "<span style='color:#27ae60;'>Kol\u00EDzne kr\u00EDdlov\u00E9 v\u00EDrenie s odrazmi pr\u00FAdnic</span>";
     }
 
+    // Kinematika 3D komponentov
     let sR = rad + 0.6, hTS = h/2 + 0.5, hBS = -h/2 - 0.5, offset = parseFloat(document.getElementById('offset-v40').value);
     topHub.position.y = hTS; bottomHub.position.y = hBS; motorMesh.position.y = hBS - 0.25;
     for(let i=0; i<3; i++) {
@@ -78,6 +90,7 @@ function animate() {
         alignCylinder(govArmsB[i], new THREE.Vector3(0, slidingCollar.position.y, 0), govWeights[i].position);
     }
 
+    // CFD Pr\u00FAdnice
     if(isCfd) {
         let U = wind === 0 ? 0.05 : wind * 0.1;
         let closedR = rad + 0.15, closedR2 = closedR * closedR;
@@ -151,30 +164,18 @@ function animate() {
     document.getElementById('val-wind-v40').innerText = wind.toFixed(1);
     document.getElementById('val-rotor-mass-v40').innerText = Math.round(estimatedRotorMass);
     document.getElementById('val-rpm-v40').innerText = Math.round(currentRPM);
-// -- K\u00F3d pre app.js -- //
-    
-    // Aktualiz\u00E1cia audio synt\u00E9zy na z\u00E1klade fyziky
+
+    // Integr\u00E1cia grafov a audia (G4.3)
+    if (typeof initCharts === "function" && chartUpdateCounter === 0) {
+        initCharts();
+    }
+    if (typeof updateCharts === "function") {
+        updateCharts(currentRPM, netTorque, wind, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
+    }
     if (typeof updateAudio === "function") {
         updateAudio(wind, currentRPM);
     }
 
-    // Predch\u00E1dzaj\u00FAci p\u00F4vodn\u00FD k\u00F3d:
-// -- K\u00F3d pre app.js -- //
-    
-    // In\u0161tal\u00E1cia grafov pri prvom prechode
-    if (typeof initCharts === "function" && chartUpdateCounter === 0) {
-        initCharts();
-    }
-
-    // Odoslanie d\u00E1t do telemetrie
-    if (typeof updateCharts === "function") {
-        updateCharts(currentRPM, netTorque, wind, rad, h, l_cm, parseFloat(document.getElementById('mass-v40').value), damp);
-    }
-    
-    // Predch\u00E1dzaj\u00FAci p\u00F4vodn\u00FD k\u00F3d:
-    renderer.render(scene, activeCamera);
-
-    renderer.render(scene, activeCamera);
     renderer.render(scene, activeCamera);
 }
 
